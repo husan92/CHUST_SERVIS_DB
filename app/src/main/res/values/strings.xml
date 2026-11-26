@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CHUST SERVIS</string>
+    <string name="taxi">TAKSI</string>
+    <string name="delivery">BUYURTMA</string>
+    <string name="driver">HAYDOVCHI</string>
+    <string name="admin">OPERATOR</string>
+</resources>
