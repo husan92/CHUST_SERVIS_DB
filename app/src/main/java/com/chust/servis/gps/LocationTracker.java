@@ -1,3 +1,4 @@
+
 package com.chust.servis.gps;
 
 import android.app.Activity;
@@ -11,46 +12,71 @@ import android.os.Bundle;
 
 public class LocationTracker implements LocationListener {
 
+    public interface LocationCallback {
+        void onLocationChanged(Location location);
+    }
+
     private LocationManager manager;
+    private LocationCallback callback;
 
     public LocationTracker(Context context) {
         manager = (LocationManager)
             context.getSystemService(Context.LOCATION_SERVICE);
     }
 
+    public void setCallback(LocationCallback callback) {
+        this.callback = callback;
+    }
+
     public void start(Activity activity) {
 
-        if (activity.checkSelfPermission(
-            Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
+        boolean fine = activity.checkSelfPermission(
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED;
 
+        boolean coarse = activity.checkSelfPermission(
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED;
+
+        if (!fine && !coarse) {
             activity.requestPermissions(
                 new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION
-                }, 101
+                },
+                101
             );
             return;
         }
 
         try {
+            String provider = fine
+                ? LocationManager.GPS_PROVIDER
+                : LocationManager.NETWORK_PROVIDER;
+
             manager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,
+                provider,
                 3000,
                 5,
                 this
             );
+
         } catch (SecurityException e) {
             e.printStackTrace();
         }
     }
 
     public void stop() {
-        manager.removeUpdates(this);
+        if (manager != null) {
+            manager.removeUpdates(this);
+        }
     }
 
     @Override
     public void onLocationChanged(Location location) {
+        if (callback != null) {
+            callback.onLocationChanged(location);
+        }
     }
 
     @Override
@@ -63,6 +89,7 @@ public class LocationTracker implements LocationListener {
 
     @Override
     public void onStatusChanged(
-        String provider, int status, Bundle extras) {
+        String provider, int status, Bundle extras
+    ) {
     }
 }
