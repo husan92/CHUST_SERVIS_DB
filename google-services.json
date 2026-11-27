@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "726969716860",
+    "project_id": "chust-servis",
+    "storage_bucket": "chust-servis.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726969716860:android:563989634771d10aca79f9",
+        "android_client_info": {
+          "package_name": "com.chust.servis"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2KwNrg5RvJvCPJvcPGTcFmrAERO-t-H0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
