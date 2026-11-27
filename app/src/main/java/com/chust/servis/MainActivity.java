@@ -2,6 +2,7 @@ package com.chust.servis;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.content.Intent;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +33,16 @@ public class MainActivity extends Activity {
         layout.addView(title);
         layout.addView(taxi);
         layout.addView(delivery);
+
+        taxi.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, TaxiActivity.class);
+            startActivity(intent);
+        });
+
+        delivery.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, DeliveryActivity.class);
+            startActivity(intent);
+        });
 
         setContentView(layout);
     }
