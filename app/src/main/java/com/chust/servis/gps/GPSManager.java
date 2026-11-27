@@ -1,3 +1,4 @@
+
 package com.chust.servis.gps;
 
 import android.app.Activity;
@@ -6,8 +7,6 @@ import android.location.LocationManager;
 import android.content.Context;
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.location.LocationListener;
-import android.os.Bundle;
 
 public class GPSManager {
 
@@ -22,20 +21,35 @@ public class GPSManager {
 
         if (activity.checkSelfPermission(
             Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED &&
+            activity.checkSelfPermission(
+            Manifest.permission.ACCESS_COARSE_LOCATION)
             != PackageManager.PERMISSION_GRANTED) {
 
             activity.requestPermissions(
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                },
                 100
             );
             return null;
         }
 
         try {
-            return manager.getLastKnownLocation(
+            Location location = manager.getLastKnownLocation(
                 LocationManager.GPS_PROVIDER
             );
-        } catch (Exception e) {
+
+            if (location == null) {
+                location = manager.getLastKnownLocation(
+                    LocationManager.NETWORK_PROVIDER
+                );
+            }
+
+            return location;
+
+        } catch (SecurityException e) {
             return null;
         }
     }
