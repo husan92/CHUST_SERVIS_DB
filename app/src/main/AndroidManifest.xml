@@ -11,6 +11,10 @@
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
 
         <activity
+            android:name="com.chust.servis.DriverActivity"
+            android:exported="false" />
+
+        <activity
             android:name="com.chust.servis.DeliveryActivity"
             android:exported="false" />
 
