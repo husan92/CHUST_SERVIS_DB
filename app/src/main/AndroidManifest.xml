@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -11,7 +12,15 @@
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.chust.servis.DeliveryActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.chust.servis.TaxiActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.chust.servis.MainActivity"
             android:exported="true">
 
             <intent-filter>
